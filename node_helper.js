@@ -6,6 +6,9 @@
  */
 
 var NodeHelper = require("node_helper");
+var googleapi = require('googleapis');
+var ApiKeyFile = require('./keyfile.json');
+var config;
 
 module.exports = NodeHelper.create({
 
@@ -17,31 +20,59 @@ module.exports = NodeHelper.create({
 	 * argument notification string - The identifier of the noitication.
 	 * argument payload mixed - The payload of the notification.
 	 */
-	socketNotificationReceived: function(notification, payload) {
-		if (notification === "MMM-GoogleAnalytics-NOTIFICATION_TEST") {
-			console.log("Working notification system. Notification:", notification, "payload: ", payload);
+	socketNotificationReceived: function(notification, config) {
+		if (notification === "MMM-GoogleAnalytics-QUERY_DATA") {
 			// Send notification
-			this.sendNotificationTest(this.anotherFunction()); //Is possible send objects :)
+			var self = this;
+			this.config = config;
+			this.authorize(function(string){
+					self.sendNotificationTest(string);
+			});
 		}
 	},
 
 	// Example function send notification test
 	sendNotificationTest: function(payload) {
-		this.sendSocketNotification("MMM-GoogleAnalytics-NOTIFICATION_TEST", payload);
+		this.sendSocketNotification("MMM-GoogleAnalytics-DISPLAY_DATA", payload);
 	},
 
-	// this you can create extra routes for your module
-	extraRoutes: function() {
-		var self = this;
-		this.expressApp.get("/MMM-GoogleAnalytics/extra_route", function(req, res) {
-			// call another function
-			values = self.anotherFunction();
-			res.send(values);
+	authorize: function(callback) {
+		var	self = this;
+		var google = this.getdefaultObj(googleapi);
+		var Key = this.getdefaultObj(ApiKeyFile);
+
+		var jwtClient = new google.default.auth.JWT(Key.default.client_email, null, Key.default.private_key, ['https://www.googleapis.com/auth/analytics.readonly'], null);
+		jwtClient.authorize(function (err, tokens) {
+		  if (err) {
+		    console.log(err);
+		    return;
+		  }
+		  var analytics = google.default.analytics('v3');
+		 analytics.data.ga.get({
+			'auth': jwtClient,
+			'ids': self.config.viewID ,
+			'metrics': self.config.metrics,
+			'dimensions': self.config.dimensions,
+			'start-date': self.config.start_date,
+			'end-date': self.config.end_date,
+			'sort': self.config.sort,
+			'max_results' : self.config.max_results,
+			//'filters' : self.config.filters
+
+		  }, function (err, response) {
+			if (err) {
+			  console.log(err);
+			  return;
+			}
+			//console.log(JSON.stringify(response, null, 4));
+			callback(response);
+		  });
 		});
 	},
 
-	// Test another function
-	anotherFunction: function() {
-		return {date: new Date()};
+	getdefaultObj: function(obj) {
+		return obj && obj.__esModule ? obj : { default: obj };
 	}
+
+
 });

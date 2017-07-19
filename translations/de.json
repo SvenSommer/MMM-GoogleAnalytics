@@ -1,0 +1,9 @@
+{
+  "ga:users": "Nutzer",
+  "ga:newusers": "Neue Nutzer",
+  "ga:pageviews": "Seitenaufrufe",
+  "ga:sessions": "Sitzungen",
+  "ga:uniquePageviews": "Einzelne Seitenaufrufe",
+  "ga:city": "Stadt",
+  "ga:country": "Land"
+}

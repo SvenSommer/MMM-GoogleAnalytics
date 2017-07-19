@@ -1,4 +1,9 @@
 {
-  "TITLE": "Title",
-  "UPDATE": "Update"
+  "ga:users": "Users",
+  "ga:newusers": "New Users",
+  "ga:pageviews": "Pageviews",
+  "ga:sessions": "Sessions",
+  "ga:uniquePageviews": "Unique Pageviews",
+  "ga:city": "City",
+  "ga:country": "Country"
 }

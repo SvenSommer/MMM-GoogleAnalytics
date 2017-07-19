@@ -9,8 +9,18 @@
 
 Module.register("MMM-GoogleAnalytics", {
 	defaults: {
-		updateInterval: 60000,
-		retryDelay: 5000
+		updateInterval: 60 * 10 * 1000,
+		viewID : 'ga:123456700',
+		metrics: 'ga:newusers,ga:users, ga:sessions, ga:pageviews',
+		start_date: 'today',
+		end_date: 'today',
+		dimensions: 'ga:country',
+		sort: '-ga:pageviews',
+		max_results: 10,
+		filters: '',
+		updateInterval: 60 * 10 * 1000,
+		animationSpeed: 5000,
+		retryDelay: 500000
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
@@ -39,28 +49,11 @@ Module.register("MMM-GoogleAnalytics", {
 	getData: function() {
 		var self = this;
 
-		var urlApi = "https://jsonplaceholder.typicode.com/posts/1";
-		var retry = true;
-
+		var urlApi = "";
 		var dataRequest = new XMLHttpRequest();
 		dataRequest.open("GET", urlApi, true);
 		dataRequest.onreadystatechange = function() {
-			console.log(this.readyState);
-			if (this.readyState === 4) {
-				console.log(this.status);
-				if (this.status === 200) {
-					self.processData(JSON.parse(this.response));
-				} else if (this.status === 401) {
-					self.updateDom(self.config.animationSpeed);
-					Log.error(self.name, this.status);
-					retry = false;
-				} else {
-					Log.error(self.name, "Could not load data.");
-				}
-				if (retry) {
-					self.scheduleUpdate((self.loaded) ? -1 : self.config.retryDelay);
-				}
-			}
+			 self.processData();
 		};
 		dataRequest.send();
 	},
@@ -89,29 +82,40 @@ Module.register("MMM-GoogleAnalytics", {
 
 		// create element wrapper for show into the module
 		var wrapper = document.createElement("div");
-		// If this.dataRequest is not empty
-		if (this.dataRequest) {
-			var wrapperDataRequest = document.createElement("div");
-			// check format https://jsonplaceholder.typicode.com/posts/1
-			wrapperDataRequest.innerHTML = this.dataRequest.title;
+		if(!this.loaded) {
+                wrapper.innerHTML = "Loading...";
+                return wrapper;
+        }
 
-			var labelDataRequest = document.createElement("label");
-			// Use translate function
-			//             this id defined in translations files
-			labelDataRequest.innerHTML = this.translate("TITLE");
-
-
-			wrapper.appendChild(labelDataRequest);
-			wrapper.appendChild(wrapperDataRequest);
-		}
-
-		// Data from helper
 		if (this.dataNotification) {
 			var wrapperDataNotification = document.createElement("div");
-			// translations  + datanotification
-			wrapperDataNotification.innerHTML =  this.translate("UPDATE") + ": " + this.dataNotification.date;
 
-			wrapper.appendChild(wrapperDataNotification);
+			var table = document.createElement("table");
+			table.className = "small";
+
+			var hrow = document.createElement("tr");
+			for (var h in this.dataNotification.columnHeaders) {
+				var cheader_element = this.dataNotification.columnHeaders[h];
+
+				var headercell = document.createElement("td");
+				headercell.innerHTML = "<b>" + this.translate(cheader_element.name)+ "</b>&nbsp;";
+				hrow.appendChild(headercell);
+			}
+			table.appendChild(hrow);
+
+			for (var r in this.dataNotification.rows) {
+				var crow_element  = this.dataNotification.rows[r];
+				var row = document.createElement("tr");
+
+				for (var c in crow_element) {
+					var rowcell = document.createElement("td");
+					rowcell.innerHTML = crow_element[c];
+					row.appendChild(rowcell);
+				}
+				table.appendChild(row);
+			}
+			wrapper.appendChild(table);
+
 		}
 		return wrapper;
 	},
@@ -122,27 +126,26 @@ Module.register("MMM-GoogleAnalytics", {
 
 	// Load translations files
 	getTranslations: function() {
-		//FIXME: This can be load a one file javascript definition
 		return {
 			en: "translations/en.json",
-			es: "translations/es.json"
+			es: "translations/es.json",
+			de: "translations/de.json",
+
 		};
 	},
 
-	processData: function(data) {
+	processData: function() {
 		var self = this;
-		this.dataRequest = data;
+		//this.dataRequest = data;
 		if (this.loaded === false) { self.updateDom(self.config.animationSpeed) ; }
 		this.loaded = true;
 
-		// the data if load
-		// send notification to helper
-		this.sendSocketNotification("MMM-GoogleAnalytics-NOTIFICATION_TEST", data);
+		this.sendSocketNotification("MMM-GoogleAnalytics-QUERY_DATA", this.config);
 	},
 
 	// socketNotificationReceived from helper
 	socketNotificationReceived: function (notification, payload) {
-		if(notification === "MMM-GoogleAnalytics-NOTIFICATION_TEST") {
+		if(notification === "MMM-GoogleAnalytics-DISPLAY_DATA") {
 			// set dataNotification
 			this.dataNotification = payload;
 			this.updateDom();

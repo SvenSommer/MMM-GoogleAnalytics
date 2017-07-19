@@ -1,7 +1,7 @@
 {
   "name": "MMM-GoogleAnalytics",
   "version": "1.0.0",
-  "description": "Todo: Insert description here!",
+  "description": "This is a module for the MagicMirror² for displaying data from Google Analytics.",
   "main": "MMM-GoogleAnalytics.js",
   "author": "SvenSommer",
   "license": "MIT",
@@ -14,5 +14,8 @@
     "grunt-yamllint": "latest",
     "stylelint-config-standard": "latest",
     "time-grunt": "latest"
+  },
+  "dependencies": {
+    "googleapis": "^20.1.0"
   }
 }
