@@ -8,3 +8,61 @@
  * Custom here your css module
  *
  */
+
+.header{
+    text-align: center;
+    vertical-align: bottom;
+    font-weight: 700;
+
+}
+
+ .ptbWrapper {
+     position: relative;
+ }
+ .totalline {
+     border-top: 1px solid  #666;
+     font-family: "Roboto Condensed", sans-serif;
+
+ }
+ .small {
+   font-size: 20px;
+   line-height: 25px;
+ }
+ .xsmall {
+   font-size: 15px;
+   line-height: 20px;
+ }
+ .dimmed {
+   color: #666;
+ }
+ .centered {
+     text-align: center;
+     vertical-align: middle;
+ }
+ .thin {
+   font-family: Roboto, sans-serif;
+   font-weight: 100;
+ }
+
+ .light {
+   font-family: "Roboto Condensed", sans-serif;
+   font-weight: 300;
+ }
+
+ .regular {
+   font-family: "Roboto Condensed", sans-serif;
+   font-weight: 400;
+ }
+
+ .bold {
+   font-family: "Roboto Condensed", sans-serif;
+   font-weight: 700;
+ }
+
+ .align-right {
+   text-align: right;
+ }
+
+ .align-left {
+   text-align: left;
+ }

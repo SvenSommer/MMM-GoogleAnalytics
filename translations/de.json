@@ -1,9 +1,21 @@
 {
-  "ga:users": "Nutzer",
-  "ga:newusers": "Neue Nutzer",
-  "ga:pageviews": "Seitenaufrufe",
-  "ga:sessions": "Sitzungen",
-  "ga:uniquePageviews": "Einzelne Seitenaufrufe",
-  "ga:city": "Stadt",
-  "ga:country": "Land"
+    "ga:users": "Nutzer",
+    "ga:newusers": "Neue<br>Nutzer",
+    "ga:pageviews": "Seiten-<br>aufrufe",
+    "ga:sessions": "Sitzungen",
+    "ga:uniquePageviews": "Einzelne<br>Seitenaufrufe",
+    "ga:city": "Stadt",
+    "ga:country": "Land",
+    "ga:sessionDuration": "Sitzungs-<br>dauer",
+    "ga:mobileDeviceInfo": "Mobiltelefon<br>-Info",
+    "ga:bounces": "Absprungrate",
+    "ga:userType": "Benutzertyp",
+    "ga:source": "Quelle",
+    "ga:medium": "Medium",
+    "ga:campaign": "Kampagne",
+    "ga:adContent": "Anzeigeninhalt",
+    "ga:keyword": "Keyword-Targeting",
+    "ga:socialNetwork": "Soziales Netzwerk",
+    "ga:referralPath": "Verweispfad",
+    "ga:hasSocialSourceReferral": "Verweis von sozialer Quelle"
 }

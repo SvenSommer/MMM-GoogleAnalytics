@@ -65,7 +65,7 @@ The [Query Explorer](https://ga-dev-tools.appspot.com/query-explorer/) lets you 
 | Option           | Required | Type | Description
 |----------------- |-----------|-------|----------------
 | `viewID`        | *yes*|`string`| Google Analytics view (profile) ID. Follow this [blogpost](http://robstechlog.com/2017/07/19/display-website-statistics-smart-mirror-mmm-googleanalytics/) to get it.
-| `metrics`        | *yes*|`string`| The aggregated statistics for user activity to your site, such as clicks or pageviews. [Possible Options](https://developers.google.com/analytics/devguides/reporting/core/dimsmets).
+| `metrics`        | *yes*|`string`| The aggregated statistics for user activity to your site, such as clicks or pageviews. See [Possible Options](https://developers.google.com/analytics/devguides/reporting/core/dimsmets).
 | `start_date`        | *yes*|`string`| Start date for fetching Analytics data.
 | `end_date`        | *yes*|`string`| End date for fetching Analytics data.
 | `dimensions`        | *no*|`string`| Breaks down metrics by common criteria.

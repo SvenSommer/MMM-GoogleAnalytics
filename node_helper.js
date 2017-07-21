@@ -48,23 +48,40 @@ module.exports = NodeHelper.create({
 		    return;
 		  }
 		  var analytics = google.default.analytics('v3');
-		 analytics.data.ga.get({
-			'auth': jwtClient,
-			'ids': self.config.viewID ,
-			'metrics': self.config.metrics,
-			'dimensions': self.config.dimensions,
-			'start-date': self.config.start_date,
-			'end-date': self.config.end_date,
-			'sort': self.config.sort,
-			'max_results' : self.config.max_results,
-			//'filters' : self.config.filters
 
-		  }, function (err, response) {
+/*
+		  'auth': jwtClient,
+	  	'ids': self.config.viewID ,
+	  	'metrics': self.config.metrics,
+
+	  	'start-date': self.config.start_date,
+	  	'end-date': self.config.end_date,
+	  	'sort': self.config.sort,
+	  	'max-results' : self.config.max_results,
+	  	'filters' : self.config.filters */
+		  var querybuilder =  {
+			  'auth': jwtClient,
+			  'ids': self.config.viewID ,
+			  'metrics': self.config.metrics,
+			  'start-date': self.config.start_date,
+	  	  	  'end-date': self.config.end_date,
+		  };
+		  if (self.config.dimensions != '') {querybuilder['dimensions'] = self.config.dimensions;}
+		  if (self.config.sort != '') {querybuilder['sort'] = self.config.sort;}
+		  if (self.config.filters != '') {querybuilder['filters'] = self.config.filters;}
+		  if (self.config.segment != '') {querybuilder['segment'] = self.config.segment;}
+		  if (self.config.start_index != '') {querybuilder['start-index'] = self.config.start_index;}
+		  if (self.config.max_results != '') {querybuilder['max-results'] = self.config.max_results;}
+
+		 analytics.data.ga.get(
+			 querybuilder
+
+		  , function (err, response) {
 			if (err) {
 			  console.log(err);
 			  return;
 			}
-			//console.log(JSON.stringify(response, null, 4));
+			console.log(JSON.stringify(response, null, 4));
 			callback(response);
 		  });
 		});
