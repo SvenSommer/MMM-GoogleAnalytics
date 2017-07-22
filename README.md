@@ -4,7 +4,8 @@ This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror
 
 ![Screenshot of a MMM-GoogleAnalytics](https://github.com/SvenSommer/MMM-GoogleAnalytics/blob/master/MMM_GoogleAnalytics_screenshot.png?raw=true)
 
-![Screenshot of a MMM-GoogleAnalytics](https://github.com/SvenSommer/MMM-GoogleAnalytics/blob/master/MMM-GoogleAnalytics_animated_short.gif?raw=true)
+It's possible to show user location with [MMM-Globe](https://github.com/SvenSommer/MMM-Globe)
+![Screenshot of a MMM-GoogleAnalytics](https://github.com/SvenSommer/MMM-GoogleAnalytics/blob/master/MMM-GoogleAnalytics_animated.gif?raw=true)
 
 ## Using the module
 ### 1. Install of the module
@@ -78,4 +79,4 @@ The [Query Explorer](https://ga-dev-tools.appspot.com/query-explorer/) lets you 
 | `filters`        | *no*|`string`| restricts the data returned from your request.
 | `max_results`        | *no*|`int`| The maximum number of rows to include in the response.
 | `showtable` | *no*|`int`| 1 - shows results in a table. 0 - no table is shown
-| `exportdatatoMMM_Globe` | *no*|`int`| Modul is able to send coordinates of users to another module [MMM-Globe](https://github.com/Eunanibus/MMM-Globe). Therefore you need to include ``ga:city, ga:country`` in dimension section of your query.
+| `exportdatatoMMM_Globe` | *no*|`int`| Modul is able to send coordinates of users to another module [MMM-Globe](https://github.com/SvenSommer/MMM-Globe). Therefore you need to include ``ga:city, ga:country`` in dimension section of your query.
