@@ -4,6 +4,7 @@ This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror
 
 ![Screenshot of a MMM-GoogleAnalytics](https://github.com/SvenSommer/MMM-GoogleAnalytics/blob/master/MMM_GoogleAnalytics_screenshot.png?raw=true)
 
+![Screenshot of a MMM-GoogleAnalytics](https://github.com/SvenSommer/MMM-GoogleAnalytics/blob/master/MMM-GoogleAnalytics_animated_short.gif?raw=true)
 
 ## Using the module
 ### 1. Install of the module
