@@ -43,14 +43,18 @@ var config = {
 		position: 'top_left',
 		config: {
 			viewID : 'ga:123456700', // see README.md, how to get viewID and your keyfile.json
-			metrics: 'ga:newusers,ga:users, ga:sessions, ga:pageviews',
-            start_date: 'today', //today,1daysAgo,30daysAgo
+            start_date: 'today', //today,1daysAgo,
             end_date: 'today',
-            dimensions: 'ga:country',
-            sort: '-ga:pageviews',
-            max_results: 10,
+            metrics: 'ga:newusers,ga:users, ga:sessions, ga:pageviews,  ga:sessionDuration',
+            dimensions: 'ga:city, ga:country',
+            sort: '-ga:users',
             filters: '',
-            updateInterval: 60 * 10 * 1000
+            segment: '',
+            start_index: 1,
+            max_results: 50,
+            updateInterval: 60 * 1000* 10, // every minute
+            showtable: 1,
+            exportdatatoMMM_Globe: 1
 			}
 		},
     ]
@@ -65,11 +69,12 @@ The [Query Explorer](https://ga-dev-tools.appspot.com/query-explorer/) lets you 
 | Option           | Required | Type | Description
 |----------------- |-----------|-------|----------------
 | `viewID`        | *yes*|`string`| Google Analytics view (profile) ID. Follow this [blogpost](http://robstechlog.com/2017/07/19/display-website-statistics-smart-mirror-mmm-googleanalytics/) to get it.
-| `metrics`        | *yes*|`string`| The aggregated statistics for user activity to your site, such as clicks or pageviews. See [Possible Options](https://developers.google.com/analytics/devguides/reporting/core/dimsmets).
 | `start_date`        | *yes*|`string`| Start date for fetching Analytics data.
 | `end_date`        | *yes*|`string`| End date for fetching Analytics data.
+| `metrics`        | *yes*|`string`| The aggregated statistics for user activity to your site, such as clicks or pageviews. See [Possible Options](https://developers.google.com/analytics/devguides/reporting/core/dimsmets).
 | `dimensions`        | *no*|`string`| Breaks down metrics by common criteria.
 | `sort`        | *no*|`string`| A list of metrics and dimensions indicating the sorting order and sorting direction for the returned data.
-| `max_results`        | *no*|`int`| The maximum number of rows to include in the response.
 | `filters`        | *no*|`string`| restricts the data returned from your request.
-| `updateInterval` | *no*|`int`| Interval query is fired  in(milliseconds) <br>Default 60000 milliseconds (1 minute)
+| `max_results`        | *no*|`int`| The maximum number of rows to include in the response.
+| `showtable` | *no*|`int`| 1 - shows results in a table. 0 - no table is shown
+| `exportdatatoMMM_Globe` | *no*|`int`| Modul is able to send coordinates of users to another module [MMM-Globe](https://github.com/Eunanibus/MMM-Globe). Therefore you need to include ``ga:city, ga:country`` in dimension section of your query.
