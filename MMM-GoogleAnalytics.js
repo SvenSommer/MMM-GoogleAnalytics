@@ -145,8 +145,6 @@ Module.register("MMM-GoogleAnalytics", {
 								rowcell.innerHTML = crow_element[c];
 								rowcell.className = "centered";
 							}
-
-
 							row.appendChild(rowcell);
 							i++;
 						}

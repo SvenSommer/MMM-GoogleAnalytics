@@ -4,7 +4,10 @@ This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror
 
 ![Screenshot of a MMM-GoogleAnalytics](https://github.com/SvenSommer/MMM-GoogleAnalytics/blob/master/MMM_GoogleAnalytics_screenshot.png?raw=true)
 
-It's possible to show user location with [MMM-Globe](https://github.com/SvenSommer/MMM-Globe)
+<br>
+
+Optional broadcast of user location data to [MMM-Globe](https://github.com/SvenSommer/MMM-Globe) possible.<p>
+**Important note:** Unfortunately MMM-Global is not capable of running properly on a Raspberry Pi 3 causes of lacking computing power.
 ![Screenshot of a MMM-GoogleAnalytics](https://github.com/SvenSommer/MMM-GoogleAnalytics/blob/master/MMM-GoogleAnalytics_animated.gif?raw=true)
 
 ## Using the module
@@ -40,14 +43,14 @@ To use this module, add the following configuration block to the modules array i
 var config = {
     modules: [
         {
-		module: 'MMM-GoogleAnalytics',
-		header: 'mywebsite.com - Today',
-		position: 'top_left',
-		config: {
-			viewID : 'ga:123456700', // see README.md, how to get viewID and your keyfile.json
+        module: 'MMM-GoogleAnalytics',
+        header: 'mywebsite.com - Today',
+        position: 'top_left',
+        config: {
+            viewID : 'ga:123456700', // see README.md, how to get viewID and your keyfile.json
             start_date: 'today', //today,1daysAgo,
             end_date: 'today',
-            metrics: 'ga:newusers,ga:users, ga:sessions, ga:pageviews,  ga:sessionDuration',
+            metrics: 'ga:newusers, ga:users, ga:sessions, ga:pageviews,  ga:sessionDuration',
             dimensions: 'ga:city, ga:country',
             sort: '-ga:users',
             filters: '',
@@ -56,12 +59,17 @@ var config = {
             max_results: 50,
             updateInterval: 60 * 1000* 10, // every minute
             showtable: 1,
-            exportdatatoMMM_Globe: 1
-			}
-		},
+            exportdatatoMMM_Globe: 0
+            }
+        },
     ]
 }
 ```
+### 5. (Optional) Configure the module to broadcast to MMM-Globe
+If you want to display the geographic  location of your website visitors on the [MMM-Globe](https://github.com/SvenSommer/MMM-Globe) module, follow the following steps:
+* The Query needs to include ``'ga:city, ga:country'`` for the dimensions. In this specific order.
+* Follow the install instructions of [MMM-Globe](https://github.com/SvenSommer/MMM-Globe)
+* within the ``config section`` of MMM-Globe, change ``receiveExternalLocations:`` to ``1``.
 
 ## Configuration options
 Check out the [common queries](https://developers.google.com/analytics/devguides/reporting/core/v3/common-queries) in the [API Reference](https://developers.google.com/analytics/devguides/reporting/core/v3/reference).
