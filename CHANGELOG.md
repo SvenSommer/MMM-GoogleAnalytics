@@ -13,3 +13,8 @@ First public release
     * segment
     * start_index
     * max_results
+
+## [1.2.0] - Broadcasting Geodata implemented
+
+* Google Maps is queried for Coordinates of the City, Country
+* Coorrdinates are send via Notification and could be used to display on MMM-Globe
