@@ -2,7 +2,7 @@
 
 This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror/) to display data from Google Analytics.
 
-![Screenshot of a MMM-GoogleAnalytics](https://github.com/SvenSommer/MMM-GoogleAnalytics/blob/master/MMM-Googleanalytics_feature.png?raw=true)
+![Screenshot of a MMM-GoogleAnalytics](http://robstechlog.com/wp-content/uploads/2017/07/MMM-Googleanalytics_feature.png?raw=true)
 
 <br>
 
