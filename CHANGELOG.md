@@ -18,3 +18,8 @@ First public release
 
 * Google Maps is queried for Coordinates of the City, Country
 * Coorrdinates are send via Notification and could be used to display on MMM-Globe
+
+## [1.3.0] - Broadcasting Geodata implemented
+
+* Implemented optional symbols for Header information in table view
+* Bugfix: automatic reload reworked
