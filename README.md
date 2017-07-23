@@ -6,7 +6,7 @@ This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror
 
 <br>
 
-Optional broadcast of user location data to [MMM-Globe](https://github.com/SvenSommer/MMM-Globe) possible.<p>
+An optional broadcast of visitors/customers location data to [MMM-Globe](https://github.com/SvenSommer/MMM-Globe) is also possible.<p>
 
 ![Screenshot of a MMM-GoogleAnalytics](https://github.com/SvenSommer/MMM-GoogleAnalytics/blob/master/MMM-GoogleAnalytics_animated.gif?raw=true)
 ##### Important note to MMM-Globe
