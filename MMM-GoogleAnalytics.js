@@ -22,6 +22,7 @@ Module.register("MMM-GoogleAnalytics", {
 		updateInterval: 10 * 10 * 1000,
 		retryDelay: 500000,
 		showtable: 0,
+		displaySymbols: true,
 		exportdatatoMMM_Globe: 1
 	},
 
@@ -39,6 +40,7 @@ Module.register("MMM-GoogleAnalytics", {
 		//this.sendTestArray();
 
 		setInterval(function() {
+			this.getData();
 			self.updateDom();
 		}, this.config.updateInterval);
 	},
@@ -98,18 +100,33 @@ Module.register("MMM-GoogleAnalytics", {
 
 					var table = document.createElement("table");
 					table.className = "small";
-						//header
+
 					var hrow = document.createElement("tr");
 					var trow = document.createElement("tr");
 					var columnDataTypes = [];
+
+
 					for (var h in this.dataNotification.columnHeaders) {
-						//header line
-						var headercell = document.createElement("td");
 						var cheader_element = this.dataNotification.columnHeaders[h];
 						columnDataTypes.push(cheader_element.dataType);
-						headercell.innerHTML = this.translate(cheader_element.name);
-						headercell.className = "header";
+						//header line
+						var headercell = document.createElement("td");
+						if (!this.config.displaySymbols) {
+							headercell.innerHTML = this.translate(cheader_element.name);
+							headercell.className = "header";
+						}else {
+							var headeraymbol = document.createElement("span");
+							if (!this.translate(cheader_element.name).indexOf("fa-")) {
+								headercell.innerHTML = cheader_element.name;
+							}else {
+								headeraymbol.className = this.translate(cheader_element.name);
+							}
+							headercell.appendChild(headeraymbol);
+							headercell.className =  " centered";
+							}
 						hrow.appendChild(headercell);
+
+
 						//total line
 						var totalcell = document.createElement("td");
 
@@ -129,7 +146,7 @@ Module.register("MMM-GoogleAnalytics", {
 
 					}
 					table.appendChild(hrow);
-					table.appendChild(trow);
+
 
 					//rows
 					for (var r in this.dataNotification.rows) {
@@ -150,7 +167,8 @@ Module.register("MMM-GoogleAnalytics", {
 						}
 						table.appendChild(row);
 					}
-
+					//adding total line
+					table.appendChild(trow);
 					wrapper.appendChild(table);
 				}
 
@@ -198,27 +216,34 @@ Module.register("MMM-GoogleAnalytics", {
 
 	getStyles: function () {
 		return [
-			"MMM-GoogleAnalytics.css",
+			"MMM-GoogleAnalytics.css", "font-awesome.css"
 		];
 	},
 
 	// Load translations files
 	getTranslations: function() {
-		return {
-			en: "translations/en.json",
-			es: "translations/es.json",
-			de: "translations/de.json",
+		if (!this.config.displaySymbols) {
+			return {
+				en: "translations/en.json",
+				es: "translations/es.json",
+				de: "translations/de.json",
 
-		};
+			};
+		}else {
+			return {
+				en: "translations/symbols.json",
+				es: "translations/symbols.json",
+				de: "translations/symbols.json",
+			};
+		}
+
+
 	},
 
 	// socketNotificationReceived from helper
 	socketNotificationReceived: function (notification, payload) {
-			console.log(notification, "received!");
 		if(notification === "MMM-GoogleAnalytics-DISPLAY_DATA") {
 			this.loaded = true;
-			console.log("exportdatatoMMM_Globe", this.config.exportdatatoMMM_Globe);
-			// set dataNotification
 			this.dataNotification = payload;
 			this.updateDom();
 			if ( this.config.exportdatatoMMM_Globe===1) {
