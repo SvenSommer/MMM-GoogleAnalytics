@@ -56,15 +56,17 @@ var config = {
             start_date: 'today', //today,1daysAgo,
             end_date: 'today',
             metrics: 'ga:newusers, ga:users, ga:sessions, ga:pageviews,  ga:sessionDuration',
-            dimensions: 'ga:city, ga:country',
-            sort: '-ga:users',
-            filters: '',
-            segment: '',
-            start_index: 1,
-            max_results: 50,
-            updateInterval: 60 * 1000* 10, // every minute
-            showtable: 1,
-            exportdatatoMMM_Globe: 0
+			dimensions: 'ga:country', //ga:country, ga:city,ga:source
+			sort: '-ga:timeOnPage',
+			filters: 'ga:timeOnPage>10', //ga:timeOnPage>10 Return results where the time on the page is strictly greater than ten seconds.
+			segment: '',
+			start_index: 1,
+			max_results: 50,
+			updateInterval: 1 * 10 * 1000, // every minute
+			showtable: true,
+            showtotalline: true,
+			exportdatatoMMM_Globe: false,
+			debug: false
             }
         },
     ]
@@ -91,5 +93,7 @@ The [Query Explorer](https://ga-dev-tools.appspot.com/query-explorer/) lets you 
 | `sort`        | *no*|`string`| A list of metrics and dimensions indicating the sorting order and sorting direction for the returned data.
 | `filters`        | *no*|`string`| restricts the data returned from your request.
 | `max_results`        | *no*|`int`| The maximum number of rows to include in the response.
-| `showtable` | *no*|`int`| 1 - shows results in a table. 0 - no table is shown
-| `exportdatatoMMM_Globe` | *no*|`int`| Modul is able to send coordinates of users to another module [MMM-Globe](https://github.com/SvenSommer/MMM-Globe). Therefore you need to include ``ga:city, ga:country`` in dimension section of your query.
+| `showtable` | *no*|`bool`| `true` - shows results in a table. `false` - no table is shown
+| `showtotalline` | *no*|`bool`| `true` - shows a sum in the end of each column. `false` - no summary on each column
+| `exportdatatoMMM_Globe` | *no*|`bool`| `true` - Modul sends coordinates of users to another module called [MMM-Globe](https://github.com/SvenSommer/MMM-Globe). Therefore you need to include ``ga:city, ga:country`` in dimension section of your query.
+| `debug` | *no*|`bool`| `true` - shows debug information. `false` - no debug info is shown

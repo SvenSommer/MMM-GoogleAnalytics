@@ -24,7 +24,7 @@ First public release
 * Implemented optional symbols for Header information in table view
 * Bugfix: automatic reload reworked
 
-## [1.3.1] - additomal optional Parameter added
+## [1.3.1] - additonal optional Parameter added
 
 * showtable, showtotalline and debug parameter added
 * added Debug mode
