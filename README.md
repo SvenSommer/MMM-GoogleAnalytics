@@ -15,7 +15,7 @@ Unfortunately MMM-Globe is not capable of running properly on a Raspberry Pi 3 c
 Or with the words of the creator of MMM-Globe: "Due to the intensive calculations needed to construct the objects, and the computational ability needed, I do not recommend using this module if your Mirror uses a Raspberry Pi. Please only use this module if you have something a little more powerful driving your mirror. I don’t want my work to be responsible for any mishaps with your devices."
 
 ## Using the module
-### 1. Install of the module
+### 1. Install the module
 
 In your terminal, go to your MagicMirror's Module folder:
 ````
