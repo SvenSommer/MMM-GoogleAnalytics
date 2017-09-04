@@ -27,13 +27,14 @@ Clone this repository:
 git clone https://github.com/SvenSommer/MMM-GrafanaChart
 ````
 
-### 2. Install Googles Analytics Core Reporting API
+### 2. Install Googles Analytics Core Reporting API and node-geocoder library
 Install the Googles Analytics Core Reporting API for Node.js in your ``MMM-GoogleAnalytics`` folder by using npm:
 
-`
+```
 cd MMM-GoogleAnalytics
 npm install --save googleapis
-`
+npm install node-geocoder
+```
 ### 3. Get the credentials from Google
 To get the credentials from Google, following this [blogpost](http://robstechlog.com/2017/07/19/display-website-statistics-smart-mirror-mmm-googleanalytics/).
 

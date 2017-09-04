@@ -10,7 +10,7 @@
     "ga:mobileDeviceInfo": "fa fa-mobile",
     "ga:bounces": "fa fa-sign-out",
     "ga:userType": "fa fa-user-secret",
-    "ga:source": "Quelle",
+    "ga:source": "fa fa-dot-circle-o",
     "ga:medium": "Medium",
     "ga:campaign": "Kampagne",
     "ga:adContent": "Anzeigeninhalt",

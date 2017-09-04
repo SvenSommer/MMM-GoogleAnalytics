@@ -19,11 +19,13 @@ Module.register("MMM-GoogleAnalytics", {
 		max_results: 10,
 		filters: '',
 		animationSpeed: 5000,
-		updateInterval: 10 * 10 * 1000,
+		updateInterval: 10 * 10 * 1000, //every ten minutes
 		retryDelay: 500000,
-		showtable: 0,
+		showtotalline: true,
+		showtable: true,
 		displaySymbols: true,
-		exportdatatoMMM_Globe: 1
+		exportdatatoMMM_Globe: false,
+		debug: false
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
@@ -40,7 +42,7 @@ Module.register("MMM-GoogleAnalytics", {
 		//this.sendTestArray();
 
 		setInterval(function() {
-			this.getData();
+			self.getData()
 			self.updateDom();
 		}, this.config.updateInterval);
 	},
@@ -51,6 +53,7 @@ Module.register("MMM-GoogleAnalytics", {
 		if (this.loaded === false) { self.updateDom(self.config.animationSpeed) ; }
 		this.loaded = true;
 
+
 	},
 
 	/*
@@ -60,7 +63,12 @@ Module.register("MMM-GoogleAnalytics", {
 	 *
 	 */
 	getData: function() {
+		var self = this;
+		//this.loaded = false;
 		this.sendSocketNotification("MMM-GoogleAnalytics-QUERY_DATA", this.config);
+		this.loaded = true;	
+
+
 
 	},
 	/* scheduleUpdate()
@@ -78,6 +86,7 @@ Module.register("MMM-GoogleAnalytics", {
 		var self = this;
 		setTimeout(function() {
 			self.getData();
+
 		}, nextLoad);
 	},
 
@@ -94,8 +103,12 @@ Module.register("MMM-GoogleAnalytics", {
         }
 
 		if (this.dataNotification) {
-			//console.log(this.dataNotification);
-			if (this.config.showtable===1) {
+			if (this.debug) {
+				console.log(this.dataNotification);
+			}
+
+
+			if (this.config.showtable) {
 				var wrapperDataNotification = document.createElement("div");
 
 					var table = document.createElement("table");
@@ -168,14 +181,21 @@ Module.register("MMM-GoogleAnalytics", {
 						table.appendChild(row);
 					}
 					//adding total line
-					table.appendChild(trow);
+					if (this.config.showtotalline) {
+						table.appendChild(trow);
+					}
+
 					wrapper.appendChild(table);
 				}
 
-				var d = new Date();
-				var labelLastUpdate = document.createElement("label");
-				labelLastUpdate.innerHTML = "Updated: " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2)+ ":" + ("0" + d.getSeconds()).slice(-2);
-				wrapper.appendChild(labelLastUpdate);
+				if (this.config.debug) {
+					var d = new Date();
+					var labelLastUpdate = document.createElement("label");
+					labelLastUpdate.innerHTML = "Updated: " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2)+ ":" + ("0" + d.getSeconds()).slice(-2) + "<br>Intervall: " + this.config.updateInterval/1000 + "s";
+					wrapper.appendChild(labelLastUpdate);
+				}
+
+
 			}
 		return wrapper;
 	},
@@ -242,11 +262,15 @@ Module.register("MMM-GoogleAnalytics", {
 
 	// socketNotificationReceived from helper
 	socketNotificationReceived: function (notification, payload) {
+		if (this.debug) {
+			console.log(notification, "received by MMM-GoogleAnalytics.js received");
+		}
+
 		if(notification === "MMM-GoogleAnalytics-DISPLAY_DATA") {
-			this.loaded = true;
 			this.dataNotification = payload;
 			this.updateDom();
-			if ( this.config.exportdatatoMMM_Globe===1) {
+			this.loaded = true;
+			if ( this.config.exportdatatoMMM_Globe) {
 				this.exportDatatoOtherModule();
 			}
 		}
@@ -256,7 +280,9 @@ Module.register("MMM-GoogleAnalytics", {
 	},
 	notificationReceived: function (notification, cityinfo, sender) {
 		if(notification === "MMM-GoogleAnalytics-CITYINFO" && sender === "MMM-GoogleAnalytics") {
-			console.log("MMM-GoogleAnalytics-CITYINFO received by MMM-GoogleAnalytics", cityinfo);
+			if (this.debug) {
+				console.log("MMM-GoogleAnalytics-CITYINFO received by MMM-GoogleAnalytics", cityinfo);
+			}
 		}
 	},
 });

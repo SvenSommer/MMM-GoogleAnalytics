@@ -25,11 +25,12 @@ module.exports = NodeHelper.create({
 	 * argument payload mixed - The payload of the notification.
 	 */
 	socketNotificationReceived: function(notification, payload) {
-		//console.log(notification, "received by node_helper.js received");
+		var self = this;
+		this.config = payload;
+		if (self.config.debug) {
+			 console.log(notification, "received by node_helper.js received");
+		}
 		if (notification === "MMM-GoogleAnalytics-QUERY_DATA") {
-			// Send notification
-			var self = this;
-			this.config = payload;
 			this.authorize(function(data){
 					self.sendNotification_DISPLAY_DATA(data);
 			});
@@ -67,8 +68,6 @@ module.exports = NodeHelper.create({
 
 					callback(cityobject);
 
-				//var coord = {'latitude': res[0].latitude,'longitude': res[0].longitude};
-				//callback(city,coord);
 			});
 
 
@@ -128,6 +127,10 @@ module.exports = NodeHelper.create({
 		  if (self.config.segment != '') {querybuilder['segment'] = self.config.segment;}
 		  if (self.config.start_index != '') {querybuilder['start-index'] = self.config.start_index;}
 		  if (self.config.max_results != '') {querybuilder['max-results'] = self.config.max_results;}
+
+		  if (self.config.debug) {
+		  	console.log("query data:",querybuilder);
+		  }
 
 		 analytics.data.ga.get(
 			 querybuilder
