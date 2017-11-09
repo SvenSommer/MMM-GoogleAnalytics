@@ -24,7 +24,7 @@ cd ~/MagicMirror/modules
 
 Clone this repository:
 ````
-git clone https://github.com/SvenSommer/MMM-GrafanaChart
+git clone https://github.com/SvenSommer/MMM-GoogleAnalytics
 ````
 
 ### 2. Install Googles Analytics Core Reporting API and node-geocoder library
